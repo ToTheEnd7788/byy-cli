@@ -1,0 +1,31 @@
+{
+  "name": "moon-cli",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:ToTheEnd0314/moon-cli.git",
+  "author": "Horses Lee",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "babel-node ./build/index.js && babel-node ./build/devServer.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@rollup/plugin-alias": "^2.2.0",
+    "express": "^4.17.1",
+    "rollup": "^1.27.8",
+    "rollup-plugin-copy": "^3.1.0",
+    "rollup-plugin-scss": "^1.0.2",
+    "rollup-plugin-typescript": "^1.0.1",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {},
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  }
+}
