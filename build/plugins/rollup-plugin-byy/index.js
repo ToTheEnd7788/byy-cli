@@ -10,8 +10,6 @@ export default function byy (options) {
 
       let { template, script, style } = new SplitCode(code);
 
-      console.log(55555, style);
-
       return script;
     },
 
