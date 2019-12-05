@@ -3,6 +3,7 @@ import typescriptPlugin from "rollup-plugin-typescript";
 import copyPlugin from "rollup-plugin-copy";
 import aliasPlugin from "@rollup/plugin-alias";
 import scssPlugin from "rollup-plugin-scss";
+import byyPlugin from "./plugins/rollup-plugin-byy/index";
 
 const root = path.resolve(__dirname, "../");
 
@@ -18,29 +19,24 @@ base = {
     }
   },
 
-  plugins: [
-    aliasPlugin({
-      resolve: ['.js', '.ts', '.moon', '.scss'],
-      entries: {
-        __scss: path.resolve(urls.srcRoot, "scss")
-      }
-    }),
-    scssPlugin({
-      output: (styles, stylesNode) => {
-        console.log(3333, styles);
-        console.log(4444, stylesNode);
-      }
-    }),
-    typescriptPlugin(),
-    copyPlugin({
-      targets: [
-        {
-          src: "src/views/*",
-          dest: "dist/views"
+  plugins: (name) => {
+    return [
+      byyPlugin({
+        name: "123"
+      }),
+      aliasPlugin({
+        resolve: ['.js', '.ts', '.byy', '.scss'],
+        entries: {
+          "__scss": path.resolve(urls.srcRoot, "scss"),
+          "__components": path.resolve(urls.srcRoot, "components")
         }
-      ]
-    })
-  ]
+      }),
+      scssPlugin({
+        output: `dist/css/${name}.css`
+      }),
+      typescriptPlugin()
+    ];
+  }
 },
 
   pages = [

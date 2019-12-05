@@ -1,3 +1,5 @@
 import "__scss/pages/index";
 
-console.log(555555);
+import App from "__components/App";
+
+console.log(555555, App);

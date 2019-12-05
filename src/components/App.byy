@@ -1,0 +1,33 @@
+<template>
+  <div class="app">
+    <h1 class="app__title">
+      {{ title }}
+    </h1>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "app",
+
+    data: {
+      title: "Test-App"
+    },
+
+    methods: {
+      aaa() {
+
+      }
+    }
+  };
+</script>
+
+<style lang="scss">
+  .app {
+    color: orange;
+
+    &__title {
+      font-size: 30px;
+    }
+  }
+</style>
