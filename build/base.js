@@ -1,9 +1,8 @@
 import path from "path";
 import typescriptPlugin from "rollup-plugin-typescript";
-import copyPlugin from "rollup-plugin-copy";
 import aliasPlugin from "@rollup/plugin-alias";
 import scssPlugin from "rollup-plugin-scss";
-import byyPlugin from "./plugins/rollup-plugin-byy/index";
+import byyPlugin from "./plugins/rollup-plugin-moon";
 
 const root = path.resolve(__dirname, "../");
 
@@ -25,7 +24,7 @@ base = {
         name: "123"
       }),
       aliasPlugin({
-        resolve: ['.js', '.ts', '.byy', '.scss'],
+        resolve: ['.js', '.ts', '.moon', '.scss'],
         entries: {
           "__scss": path.resolve(urls.srcRoot, "scss"),
           "__components": path.resolve(urls.srcRoot, "components")

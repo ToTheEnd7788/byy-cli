@@ -1,5 +1,13 @@
 <template>
-  <div class="app">
+  <div
+    id="app"
+    placeholder="byy"
+    :class="{
+      app: true
+    }"
+    ::ccc="this.aaa"
+    @click.stop="this.test('55', $event)"
+    @@fromChild="this.clickedAaa">
     <h1 class="app__title">
       {{ title }}
     </h1>
@@ -21,13 +29,3 @@
     }
   };
 </script>
-
-<style lang="scss">
-  .app {
-    color: orange;
-
-    &__title {
-      font-size: 30px;
-    }
-  }
-</style>
