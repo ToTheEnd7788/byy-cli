@@ -9,10 +9,11 @@
     <h1 class="app__title">
       {{ title }}
     </h1>
-    <TestOne
+    {{ title }}
+    <test-one
       :title="title"
       @fromChild="this.clickedAaa">
-    </TestOne>
+    </test-one>
   </div>
 </template>
 

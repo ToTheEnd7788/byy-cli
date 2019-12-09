@@ -1,15 +1,16 @@
 import { Parse } from "html-ast";
+import HtmlAst from "./cleanHtmlAst";
 
 class TransformRender {
   constructor(tpl) {
     this.tpl = tpl;
-    this.htmlAst = Parse(tpl);
+    this.htmlAst = 
 
     this._buildRender();
   }
 
   _buildRender() {
-    console.log(333333, this.htmlAst);
+    this.ast = new HtmlAst(this.tpl);
   }
 }
 
