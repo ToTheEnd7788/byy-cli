@@ -1,6 +1,6 @@
 import { SplitCode } from "./splitCode";
 import { format } from "esformatter";
-import transformToRender from "./trasformToRender";
+import TransformRender from "./trasformToRender";
 
 export default function byy (options) {
   let regExp = /\.moon$/;
@@ -13,7 +13,7 @@ export default function byy (options) {
       
       let { template, script} = new SplitCode(code);
 
-      transformToRender(template);
+      let renderTransformer = new TransformRender(template);
       
       return script;
     }
