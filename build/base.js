@@ -28,19 +28,17 @@ base = {
   output: (name) => {
     return {
       file: `dist/js/${name}.js`,
-      format: "cjs"
+      format: "es"
     }
   },
 
   plugins: (name) => {
     return [
       // babel(babelrc({
-      //   addExternalHelpersPlugin: true,
+      //   addExternalHelpersPlugin: false,
       //   config: babelConfig,
       //   exclude: 'node_modules/**'
       // })),
-
-      typescriptPlugin(),
       aliasPlugin({
         resolve: ['.js', '.ts', '.moon', '.scss'],
         entries: {
@@ -52,6 +50,7 @@ base = {
       byyPlugin({
         name: "123"
       }),
+      typescriptPlugin(),
       scssPlugin({
         output: `dist/css/${name}.css`
       })

@@ -6,7 +6,7 @@ async function build(name) {
   try {
     const bundle = await rollup(Object.assign({}, {
       plugins: base.plugins(name),
-      input: `./src/js/pages/${name}.ts`
+      input: `./src/js/pages/${name}.js`
     }));
   
     bundle.generate(base.output(name)).then(() => {
