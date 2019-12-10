@@ -24,6 +24,7 @@ const urls = {
 },
 
 base = {
+  treeshake: false,
   output: (name) => {
     return {
       file: `dist/js/${name}.js`,
@@ -38,11 +39,14 @@ base = {
         config: babelConfig,
         exclude: 'node_modules/**'
       })),
+
+      typescriptPlugin(),
       aliasPlugin({
         resolve: ['.js', '.ts', '.moon', '.scss'],
         entries: {
           "__scss": path.resolve(urls.srcRoot, "scss"),
-          "__components": path.resolve(urls.srcRoot, "components")
+          "__components": path.resolve(urls.srcRoot, "components"),
+          "__temp": path.resolve(root, ".temp")
         }
       }),
       byyPlugin({
@@ -50,8 +54,7 @@ base = {
       }),
       scssPlugin({
         output: `dist/css/${name}.css`
-      }),
-      typescriptPlugin()
+      })
     ];
   }
 },

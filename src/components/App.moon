@@ -18,14 +18,8 @@
 </template>
 
 <script>
-  // import TestOne from "./TestOne";
-
   export default {
     name: "app",
-
-    components: {
-      TestOne
-    },
 
     data: {
       title: "Test-App"
