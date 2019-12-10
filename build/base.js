@@ -34,11 +34,11 @@ base = {
 
   plugins: (name) => {
     return [
-      babel(babelrc({
-        addExternalHelpersPlugin: true,
-        config: babelConfig,
-        exclude: 'node_modules/**'
-      })),
+      // babel(babelrc({
+      //   addExternalHelpersPlugin: true,
+      //   config: babelConfig,
+      //   exclude: 'node_modules/**'
+      // })),
 
       typescriptPlugin(),
       aliasPlugin({

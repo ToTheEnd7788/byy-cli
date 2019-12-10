@@ -24,6 +24,8 @@ export default function byy (options) {
         return {code: script, map: null};
       } else if (/\/\.temp\/.+\.scss$/.test(id)) {
         return { code: ".test-one { color: red;  &__main {font-family: 'byy';} }", map: null };
+      } else if (id === 'a.js') {
+        return { code: "export default 666;" }
       }
     },
 
@@ -33,7 +35,9 @@ export default function byy (options) {
         this.meta.url = "byy";
 
         let src =
-          `import "__temp/index"` +
+          `import "__temp/index";\n` +
+          `import number from "a.js"\n` +
+          `console.log(number);\n` +
           `${code}`;
 
         return src;
