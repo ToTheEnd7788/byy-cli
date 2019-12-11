@@ -7,11 +7,14 @@
     }"
     @click.stop="this.test('55', $event)">
     <h1 class="app__title">
-      {{ title }}
+      {{ this.title }}
     </h1>
-    {{ title }}
+    <span class="span">
+      <i>123</i>
+    </span>
+    {{ this.title }}
     <test-one
-      :title="title"
+      :title="this.title === '123'"
       @fromChild="this.clickedAaa">
     </test-one>
   </div>

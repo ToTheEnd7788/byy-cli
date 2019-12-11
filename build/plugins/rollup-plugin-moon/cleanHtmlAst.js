@@ -10,14 +10,6 @@ export default class  {
 
   _init() {
     this.ast = this._filterAst(parseFragment(this.tpl).childNodes);
-    console.log(11111, this.ast[0]);
-
-    let renderStr =
-      `render(_c) {
-        return _c('name', {
-
-        }, []);
-      }`
   }
 
   _filterAst(childNodes) {
