@@ -50,7 +50,7 @@ base = {
       byyPlugin({
         name: "123"
       }),
-      typescriptPlugin(),
+      // typescriptPlugin(),
       scssPlugin({
         output: `dist/css/${name}.css`
       })

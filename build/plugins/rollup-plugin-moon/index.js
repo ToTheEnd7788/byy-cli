@@ -30,25 +30,7 @@ export default function byy (options) {
         let source = fs.readFileSync(id).toString();
         let { template, script } = new SplitCode(source);
 
-        let opt = readConfigFile(ts);
-
-        let testSrc = 
-        `class TestOne {
-          name: any
-          constructor(name) {
-            this.name = name;
-          }
-        
-          __init() {
-            console.log(11111, this.name);
-          }
-        }`
-
-        let aaa = ts.transpileModule(testSrc, {
-          compilerOptions: ts.convertCompilerOptionsFromJson(opt, process.cwd()).options
-        });
-
-        console.log(77777, aaa);
+        new TransformRender(template);
 
         return {
           code: script,
@@ -76,12 +58,23 @@ export default function byy (options) {
           `import "__temp/index";\n` +
           `${code}`;
 
-        console.log("%s", src);
-
         return src;
       }
+    },
 
-      console.log(4444, code, id);
+    generateBundle(a, b) {
+
+      for (let name in b) {
+        let code = b[name].code;
+        let opt = readConfigFile(ts);
+
+        let aaa = ts.transpileModule(code, {
+          compilerOptions: ts.convertCompilerOptionsFromJson(opt, process.cwd()).options
+        });
+
+        b[name].code = aaa.outputText;
+      }
+      
     }
   };
 }

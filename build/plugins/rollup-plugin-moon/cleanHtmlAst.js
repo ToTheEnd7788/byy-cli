@@ -26,7 +26,8 @@ export default class  {
           tagName,
           attrs,
           childNodes: this._filterAst(childNodes),
-          value
+          value,
+          isComponent: /^.+-.+$/.test(nodeName)
         });
       }
 
