@@ -1,4 +1,5 @@
 import HtmlAst from "./cleanHtmlAst";
+import { js as beautify } from "js-beautify";
 
 class TransformRender {
   constructor(tpl) {
@@ -13,11 +14,12 @@ class TransformRender {
     this.ast = new HtmlAst(this.tpl).ast;
     
     this.renderStr =
-    `
-    render(_c) {
+    `render(_c) {
       return ${this._buildRender(this.ast[0])};
     }`;
-    console.log("%s", this.renderStr);
+    console.log("%s", beautify(this.renderStr, {
+      indent_size: 2
+    }));
   }
 
   __buildTextNode(value) {
@@ -33,19 +35,19 @@ class TransformRender {
     return result;
   }
 
-  __buildAttributes({ attrs, isComponent}) {
+  __buildAttributes(node) {
     let result = "",
       colonExp = /^:(.+)$/,
       atExp = /^@(.+)$/;
 
-    let colons = attrs.filter(item => {
+    let colons = node.attrs.filter(item => {
       return colonExp.test(item.name);
     }),
-      ats = attrs.filter(item => {
+      ats = node.attrs.filter(item => {
         return atExp.test(item.name);
       });
 
-    if (isComponent) {
+    if (node.isComponent) {
       let map = {
         props: {
           exp: colonExp,
@@ -66,9 +68,9 @@ class TransformRender {
       for (let key in map) {
         result += map[key]['list'].reduce((acc, {name, value}, index, arr) => {
           if (index !== arr.length - 1) {
-            acc += `  ${name.replace(map[key]['exp'], "$1")}: ${value},\n`;
+            acc += `${name.replace(map[key]['exp'], "$1")}: ${value},\n`;
           } else {
-            acc += `  ${name.replace(map[key]['exp'], "$1")}: ${value}\n}`;
+            acc += `${name.replace(map[key]['exp'], "$1")}: ${value}\n}`;
 
             if (key !== 'bind') {
               acc += ",\n";
@@ -79,12 +81,87 @@ class TransformRender {
         }, map[key]['begin']);
       }
     } else {
-      let commons = attrs.filter(item => {
-        return /^[a-z].+$/.test(item.name)
+      ats = ats.map(item => {
+        let temp = item;
+
+        if (atExp.test(item.name)) {
+          temp.value = this.__solveOriginEvent(item.value);
+        }
+
+        return temp;
       });
+
+      let commons = node.attrs.filter(item => {
+        return /^[a-z].+$/.test(item.name)
+      }),
+        map = {
+          on: {
+            exp: atExp,
+            list: ats,
+            begin: ats.length > 0
+              ? "on: {\n"
+              : ""
+          },
+          commons: {
+            exp: /^(.+)$/,
+            list: commons.map(({ name, value }) => {
+              return {
+                name,
+                value: `"${value.trim()}"`
+              };
+            }),
+            begin: ""
+          },
+          autoAttr: {
+            exp: colonExp,
+            list: colons,
+            begin: ""
+          }
+        };
+
+      for (let key in map) {
+        result += map[key]['list'].reduce((acc, {name, value}, index, arr) => {
+          let tempName = `${name.replace(map[key].exp, "$1")}` === "class"
+            ? "className"
+            : `${name.replace(map[key].exp, "$1")}`;
+
+          if (index !== arr.length - 1) {
+            acc += `'${tempName}': ${value},\n`;
+          } else {
+            if (map[key]["begin"]) {
+              acc += `'${tempName}': ${value}\n},`;
+            } else {
+              acc += `'${tempName}': ${value},\n`;
+            }
+          }
+  
+          return acc;
+        }, map[key]["begin"]);
+      }
     }
 
     return result;
+  }
+
+  __solveOriginEvent(value) {
+    let exp = /^(.+)\((.+)\)$/;
+    
+    let funcName = value.replace(exp, "$1"),
+    paramsList = value.replace(exp, "$2").split(","),
+    paramsStr = paramsList.reduce((acc, item, index, arr) => {
+      item = item.trim();
+      if (item === "$event") item = `"${item}"`;
+      
+      if (arr.length - 1 !== index) {
+        acc += `${item}, `
+      } else {
+        acc += `${item}`;
+      }
+
+      return acc;
+    }, "")
+
+    return `[${funcName}, ${paramsStr}]`;
   }
 
   _buildRender(node) {

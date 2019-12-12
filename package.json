@@ -19,6 +19,7 @@
     "esformatter": "^0.11.2",
     "express": "^4.17.1",
     "html-ast": "^1.0.1",
+    "js-beautify": "^1.10.2",
     "parse5": "^5.1.1",
     "rollup": "^1.27.8",
     "rollup-plugin-babel": "^4.3.3",

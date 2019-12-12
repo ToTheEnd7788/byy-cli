@@ -6,8 +6,10 @@
       app: true
     }"
     @click.stop="this.test('55', $event)">
-    <h1 class="app__title">
-      {{ this.title }}
+    <h1
+      v-for="(item, index) in this.list"
+      class="app__title">
+      {{ item }}
     </h1>
     <span class="span">
       <i>123</i>
@@ -25,7 +27,8 @@
     name: "app",
 
     data: {
-      title: "Test-App"
+      title: "Test-App",
+      list: [1, 2, 3, 4]
     },
 
     methods: {
