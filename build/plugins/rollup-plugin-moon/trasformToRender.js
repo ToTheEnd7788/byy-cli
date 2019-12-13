@@ -1,11 +1,12 @@
 import HtmlAst from "./cleanHtmlAst";
-import { js as beautify } from "js-beautify";
 
 class TransformRender {
   constructor(tpl) {
     this.tpl = tpl;
     this.ast = null;
     this.renderStr;
+    this._renderFuncIndex = 0;
+    this.renderFuncList = {};
 
     this._init();
   }
@@ -17,9 +18,6 @@ class TransformRender {
     `render(_c) {
       return ${this._buildRender(this.ast[0])};
     }`;
-    console.log("%s", beautify(this.renderStr, {
-      indent_size: 2
-    }));
   }
 
   __buildTextNode(value) {
@@ -164,30 +162,59 @@ class TransformRender {
     return `[${funcName}, ${paramsStr}]`;
   }
 
+  __buildRenderListFunc(name, value, node) {
+    let list = value.split(/[\s]+in[\s]+/);
+
+    this.renderFuncList[`${name}`] =
+      `${name}(_c) {
+        return ${list[1]}.map(${list[0]} => {
+          return ${this._buildRender(node)};
+        })
+      }`;
+  }
+
   _buildRender(node) {
+    node.attrs = node.attrs || [];
     let {
       nodeName,
       childNodes,
       value
     } = node,
-    str;
+    str,
+    bForIndex = node.attrs.findIndex(({ name }) => {
+      return name === "b-for";
+    });
 
-    if (nodeName ==="#text") {
-      str = this.__buildTextNode(value.trim());
+    if (bForIndex > -1) {
+      str = `...this.__renderList_${this._renderFuncIndex}__(_c)`;
+      let target = node.attrs.splice(bForIndex, 1);
+
+      this.__buildRenderListFunc(
+        `__renderList_${this._renderFuncIndex}__`,
+        target[0].value,
+        node
+      );
+      
+      this._renderFuncIndex++;
     } else {
-      let childs = childNodes.map(item => {
-        let temp =
-          `${this._buildRender(item)}`;
-        return temp;
-      });
-
-      str =
-        `_c("${nodeName}", {
-          ${this.__buildAttributes(node)}
-        }, [
-          ${childs.join(',\n')}
-        ])`;
+      if (nodeName ==="#text") {
+        str = this.__buildTextNode(value.trim());
+      } else {
+        let childs = childNodes.map(item => {
+          let temp =
+            `${this._buildRender(item)}`;
+          return temp;
+        });
+  
+        str =
+          `_c("${nodeName}", {
+            ${this.__buildAttributes(node)}
+          }, [
+            ${childs.join(',\n')}
+          ])`;
+      }
     }
+
 
     return str;
   }

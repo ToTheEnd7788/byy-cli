@@ -1,6 +1,6 @@
 import { SplitCode } from "./splitCode";
-import { format } from "esformatter";
 import * as ts from "typescript";
+import { js as beautify } from "js-beautify";
 import TransformRender from "./trasformToRender";
 import fs from "fs";
 import path from "path";
@@ -30,10 +30,23 @@ export default function byy (options) {
         let source = fs.readFileSync(id).toString();
         let { template, script } = new SplitCode(source);
 
-        new TransformRender(template);
+        let { renderStr, renderFuncList } = new TransformRender(template);
+
+        let pos = script.lastIndexOf('}');
+
+        script = `${script.slice(0, pos)},\n${renderStr}${script.slice(pos)}`;
+        
+        for (let key in renderFuncList) {
+          let mBegin = script.indexOf("methods:");
+          let curBegin = script.indexOf("{", mBegin) + 1;
+          script = `${script.slice(0, curBegin)}${renderFuncList[key]},\n${script.slice(curBegin)}`
+        }
 
         return {
-          code: script,
+          code: beautify(script, {
+            indent_size: 2,
+            space_in_empty_paren: false
+          }),
           map: null
         };
       } 
