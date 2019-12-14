@@ -9,6 +9,7 @@ module.exports = {
   ],
   output: {
     file: "libs/byy.js",
-    format: "es"
+    format: "es",
+    comments: false
   }
 };

@@ -1,21 +1,10 @@
 import path from "path";
-import typescriptPlugin from "rollup-plugin-typescript";
 import aliasPlugin from "@rollup/plugin-alias";
 import scssPlugin from "rollup-plugin-scss";
-import byyPlugin from "./plugins/rollup-plugin-moon";
-import babel from "rollup-plugin-babel";
-import babelrc from "babelrc-rollup";
-
-const babelConfig = {
-  'presets': [
-    ['env', {
-      'targets': {
-        'browsers': ['IE 8']
-      },
-      'loose': true
-    }]
-  ]
-};
+import byyPlugin from "rollup-plugin-byy";
+import copyPlugin from "rollup-plugin-copy";
+import commonPlugin from "rollup-plugin-commonjs";
+import resolvePlugin from "rollup-plugin-node-resolve";
 
 const root = path.resolve(__dirname, "../");
 
@@ -28,31 +17,38 @@ base = {
   output: (name) => {
     return {
       file: `dist/js/${name}.js`,
-      format: "es"
+      format: "es",
+      // globals: {
+      //   byy: "Byy"
+      // }
     }
   },
 
   plugins: (name) => {
     return [
-      // babel(babelrc({
-      //   addExternalHelpersPlugin: false,
-      //   config: babelConfig,
-      //   exclude: 'node_modules/**'
-      // })),
+      resolvePlugin(),
+      commonPlugin({
+        include: /node_modules/
+      }),
       aliasPlugin({
-        resolve: ['.js', '.ts', '.moon', '.scss'],
+        resolve: ['.scss', '.js', '.ts', '.byy'],
         entries: {
           "__scss": path.resolve(urls.srcRoot, "scss"),
           "__components": path.resolve(urls.srcRoot, "components"),
           "__temp": path.resolve(root, ".temp")
         }
       }),
-      byyPlugin({
-        name: "123"
-      }),
-      // typescriptPlugin(),
+      byyPlugin(),
       scssPlugin({
         output: `dist/css/${name}.css`
+      }),
+      copyPlugin({
+        targets: [
+          {
+            src: "src/views/*",
+            dest: "dist/"
+          }
+        ]
       })
     ];
   }

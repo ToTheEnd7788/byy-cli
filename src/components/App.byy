@@ -1,0 +1,34 @@
+<template>
+  <div
+    @click.stop="this.aaa(this.title, $event)"
+    class="index">
+      333335555555
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "app",
+
+    data: {
+      title: "Test-App"
+    },
+
+    methods: {
+      aaa(title, e) {
+        console.log(3333333, title, e);
+      },
+
+      clickedAaa() {
+
+      }
+    }
+  };
+</script>
+
+<style lang="scss">
+  .index {
+    color: orange;
+    font-size: 30px;
+  }
+</style>

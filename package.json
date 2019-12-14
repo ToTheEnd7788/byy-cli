@@ -7,29 +7,31 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "babel-node ./build/index.js && babel-node ./build/devServer.js"
+    "dev": "cross-env NODE_ENV=development babel-node ./build/devServer.js & babel-node ./build/index.js",
+    "build": "cross-env NODE_ENV=development babel-node ./build/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@rollup/plugin-alias": "^2.2.0",
-    "babel-preset-env": "^1.7.0",
-    "babelrc-rollup": "^3.0.0",
-    "esformatter": "^0.11.2",
+    "cross-env": "^6.0.3",
     "express": "^4.17.1",
-    "html-ast": "^1.0.1",
     "js-beautify": "^1.10.2",
     "parse5": "^5.1.1",
     "rollup": "^1.27.8",
-    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-byy": "^0.1.0",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-copy": "^3.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-scss": "^1.0.2",
-    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-terser": "^5.1.3",
     "tslib": "^1.10.0",
     "typescript": "^3.7.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "byy": "^1.3.0"
+  },
   "babel": {
     "presets": [
       "@babel/preset-env"

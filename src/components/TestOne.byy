@@ -5,8 +5,13 @@
 </template>
 
 <script>
-
   export default {
     name: "test-one"
   };
 </script>
+
+<style lang="scss">
+  .test-one {
+    color: blue;
+  }
+</style>
