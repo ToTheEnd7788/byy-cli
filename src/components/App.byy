@@ -1,17 +1,51 @@
 <template>
-  <div
-    @click.stop="this.aaa(this.title, $event)"
-    class="index">
-      333335555555
+  <div class="app">
+    <div class="app__main">
+      <div class="app__main-title">
+        Todos
+      </div>
+      <div class="app__main-list">
+        <div
+          b-for="(item) in this.todos"
+          class="app__main-list-item">
+          <todo-item
+            :text="item.text">
+          </todo-item>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import TodoItem from "__components/TodoItem";
+
   export default {
     name: "app",
 
+    components: {
+      "todo-item": TodoItem
+    },
+
     data: {
-      title: "Test-App"
+      title: "Test-App",
+
+      // status:
+      // 0: new
+      // 1: finished
+      // 2: static
+      todos: [
+        {
+          text: "学习Golang",
+          status: 0,
+          checked: false
+        },
+        {
+          text: "学习Golang2",
+          status: 0,
+          checked: false
+        }
+      ]
     },
 
     methods: {
@@ -27,8 +61,40 @@
 </script>
 
 <style lang="scss">
-  .index {
-    color: orange;
-    font-size: 30px;
+  .app {
+    padding: 0 sz(20);
+    font-size: sz(30);
+
+    &__main {
+      margin-top: sz(20);
+      display: flex;
+      flex-direction: column;
+      padding: 0 sz(30);
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 sz(2) sz(20) #bbbbbb;
+
+      &-title {
+        line-height: 60px;
+        height: 60px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        color: #333333;
+        font-family: "PingFangSC-Medium";
+        font-weight: bold;
+      }
+
+      &-list {
+        margin-top: sz(10);
+
+        &-item {
+
+        }
+
+        &:last-child {
+          margin-bottom: sz(14);
+        }
+      }
+    }
   }
 </style>

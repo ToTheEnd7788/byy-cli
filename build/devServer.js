@@ -1,9 +1,23 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
+import { watch } from "rollup";
+import { base } from "./base";
+
+let watcher = {};
 
 const app = express(),
   viewsRoot = path.resolve(__dirname, "../dist");
+
+// let watchOptions = {
+//   ...Object.assign({}, {
+//     plugins: base.plugins("index"),
+//     input: `./src/js/pages/index.js`
+//   }),
+//   output: base.output("index")
+// }
+
+// watcher["index"] = watch(watchOptions);
 
 app.get('/:name', (req, res) => {
   res.set('Content-Type', 'text/html');
@@ -11,6 +25,10 @@ app.get('/:name', (req, res) => {
     if (err) {
       res.send('<h1>Not Found</h1>')
     } else {
+      if (!watcher[req.params.name]) {
+        
+      }
+
       res.end(data);
     }
   })

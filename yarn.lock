@@ -2626,10 +2626,10 @@ rimraf@2:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-byy@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-byy/-/rollup-plugin-byy-0.1.0.tgz#ea4e7d5a22523f20cadcdac0ae0be662766704a0"
-  integrity sha512-/GluI5BLY4Ia3xqctjLjDJIj2/RqgF5Jp1L8KOBn0SpKEuaiZd59Xu3cFmvYFSIfmny/OTZOLgQikzWuqO2eKQ==
+rollup-plugin-byy@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-byy/-/rollup-plugin-byy-0.3.0.tgz#dff4203e49a4c65bfef8d571586fee8a70a9b24c"
+  integrity sha512-tchFNnCqF2F2np+IYUapRxuDTWRnWI7BAfA1h2AkpkK87GrtETGG/nxp376qrqqn9Hu6F6HSFJGCykIZHyoALQ==
   dependencies:
     js-beautify "^1.10.2"
     parse5 "^5.1.1"

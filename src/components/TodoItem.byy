@@ -1,0 +1,68 @@
+<template>
+  <div class="todo-item">
+    <div class="todo-item__checkbox">
+    </div>
+
+    <div class="todo-item__text">
+      {{ this.text }}
+    </div>
+
+    <div class="todo-item__ctrls">
+      <div class="todo-item__ctrls-delete"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "todo-item",
+
+    props: {
+      text: ""
+    }
+  };
+</script>
+
+<style lang="scss">
+  .todo-item {
+    color: blue;
+    display: flex;
+    height: sz(50);
+    align-items: center;
+
+    &__checkbox {
+      width: sz(20);
+      height: sz(20);
+      border: 1px solid #cccccc;
+      border-radius: sz(6);
+    }
+
+    &__text {
+      margin-left: sz(14);
+      font-size: sz(20);
+      font-family: "PingFangSC-Regular";
+      color: #333333;
+      flex: 1;
+    }
+
+    &__ctrls {
+      box-sizing: border-box;
+      width: sz(50);
+      align-self: center;
+      display: flex;
+      justify-content: space-between;
+      padding: sz(10);
+
+      &-delete {
+        border-radius: sz(6);
+        width: sz(30);
+        height: sz(30);
+        background: red;
+        background-image: url(/dist/imgs/delete-icon.png);
+        background-size: sz(20) sz(20);
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    }
+  }
+</style>

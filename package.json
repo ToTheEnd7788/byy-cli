@@ -7,8 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development babel-node ./build/devServer.js & babel-node ./build/index.js",
-    "build": "cross-env NODE_ENV=development babel-node ./build/index.js"
+    "dev": "cross-env NODE_ENV=development babel-node ./build/devServer.js",
+    "build": "cross-env NODE_ENV=production babel-node ./build/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
@@ -20,7 +20,7 @@
     "js-beautify": "^1.10.2",
     "parse5": "^5.1.1",
     "rollup": "^1.27.8",
-    "rollup-plugin-byy": "^0.1.0",
+    "rollup-plugin-byy": "^0.3.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-copy": "^3.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
