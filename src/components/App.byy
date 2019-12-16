@@ -1,19 +1,35 @@
 <template>
-  <div class="app">
+  <div
+    :aaLb="123123"
+    class="app">
     <div class="app__main">
       <div class="app__main-title">
         Todos
       </div>
+      <div class="app__main-input">
+        <input
+          b-model="this.textContent"
+          type="text"
+          :placeholder="this.placeholder">
+        <span
+          @click.stop="this.submitItem">
+          Submit
+        </span
+        >
+      </div>
       <div class="app__main-list">
         <div
-          b-for="(item) in this.todos"
+          b-for="(item, index) in this.todos"
           class="app__main-list-item">
           <todo-item
-            :text="item.text">
+            :text="item.text"
+            :index="index"
+            :selectedList="this.selectedList"
+            @toggleCheckboxStatus="this.toggleCheckboxStatus">
           </todo-item>
         </div>
       </div>
-    </div>
+    </divclass="app">
   </div>
 </template>
 
@@ -30,27 +46,66 @@
     data: {
       title: "Test-App",
 
+      textContent: "123",
+
+      placeholder: "Please enter you item",
+
+      selectedList: [],
+
       // status:
       // 0: new
       // 1: finished
       // 2: static
-      todos: [
-        {
-          text: "学习Golang",
-          status: 0,
-          checked: false
-        },
-        {
-          text: "学习Golang2",
-          status: 0,
-          checked: false
-        }
-      ]
+      todos: []
+    },
+
+    mounted() {
+      let temp = this.todos.slice(0);
+
+      temp = JSON.parse(localStorage.getItem("list")) || [];
+      this.$set("todos", temp);
     },
 
     methods: {
-      aaa(title, e) {
-        console.log(3333333, title, e);
+      test() {
+        this.$set("textContent", "56789")
+      },
+
+      toggleCheckboxStatus(text) {
+        let temp = this.selectedList.slice(0);
+
+        let index = this.selectedList.indexOf(text);
+
+        if (index > -1) temp.splice(index, 1);
+        else temp.push(text);
+
+        this.$set("selectedList", temp);
+      },
+
+      submitItem() {
+        let text = document.querySelector("input").value.trim();
+
+        let temp = this.todos.slice(0);
+
+        let sameTextIndex = this.todos.findIndex(item => {
+          return item.text === text;
+        });
+
+        if (sameTextIndex > -1) {
+          temp.splice(sameTextIndex, 1, {
+            text,
+            status: 0
+          });
+        } else {
+          temp.unshift({
+            text,
+            status: 0
+          });
+        }
+
+        localStorage.setItem("list", JSON.stringify(temp));
+
+        this.$set("todos", temp);
       },
 
       clickedAaa() {
@@ -82,6 +137,39 @@
         color: #333333;
         font-family: "PingFangSC-Medium";
         font-weight: bold;
+      }
+
+      &-input {
+        margin-top: sz(20);
+        padding-left: sz(30);
+        padding-right: sz(130);
+        position: relative;
+
+        input {
+          box-sizing: border-box;
+          padding: 0 sz(10);
+          width: 100%;
+          height: sz(60);
+          border-radius: sz(5) 0 0 sz(5);
+          border: none;
+          border: 1px solid #cccccc;
+          outline: none;
+          font-size: sz(22);
+        }
+
+        span {
+          position: absolute;
+          width: sz(100);
+          background: rgb(9, 119, 58);
+          height: sz(60);
+          line-height: sz(60);
+          font-family: "PingFangSC-Medium";
+          font-size: sz(20);
+          text-align: center;
+          color: #ffffff;
+          right: sz(31);
+          border-radius: 0 sz(5) sz(5) 0; 
+        }
       }
 
       &-list {

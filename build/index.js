@@ -14,7 +14,7 @@ async function build(name) {
       bundle.write(base.output(name));
     });
   } catch(err) {
-    console.error(err);
+    console.error(55555555, err);
   }
 }
 

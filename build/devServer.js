@@ -9,15 +9,21 @@ let watcher = {};
 const app = express(),
   viewsRoot = path.resolve(__dirname, "../dist");
 
-// let watchOptions = {
-//   ...Object.assign({}, {
-//     plugins: base.plugins("index"),
-//     input: `./src/js/pages/index.js`
-//   }),
-//   output: base.output("index")
-// }
+let watchOptions = {
+  ...Object.assign({}, {
+    plugins: base.plugins("index"),
+    input: `./src/js/pages/index.js`
+  }),
+  output: base.output("index")
+}
 
-// watcher["index"] = watch(watchOptions);
+watcher["index"] = watch(watchOptions);
+
+watcher["index"].on('event', e => {
+  if (e.code === "ERROR") {
+    console.log(555555, e.error.frame);
+  }
+})
 
 app.get('/:name', (req, res) => {
   res.set('Content-Type', 'text/html');

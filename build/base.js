@@ -40,7 +40,8 @@ base = {
       }),
       byyPlugin(),
       scssPlugin({
-        output: `dist/css/${name}.css`
+        output: `dist/css/${name}.css`,
+        outputStyle: isDev ? "expanded" : "compressed",
       }),
       copyPlugin({
         targets: [
@@ -53,13 +54,15 @@ base = {
             dest: "dist/imgs/"
           }
         ]
+      }),
+    ].concat(isDev ? [] : [
+      terser({
+        ie8: true,
+        output: {
+          comments: false
+        }
       })
-    ].concat(isDev ? [] : [terser({
-      ie8: true,
-      output: {
-        comments: false
-      }
-    })]);
+    ]);
   }
 },
 
