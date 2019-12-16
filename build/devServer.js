@@ -21,7 +21,7 @@ watcher["index"] = watch(watchOptions);
 
 watcher["index"].on('event', e => {
   if (e.code === "ERROR") {
-    console.log(555555, e.error.frame);
+    console.log(555555, e.error);
   }
 })
 
