@@ -28,10 +28,10 @@ Trace:
 
 npm manifest: 
   {
-    "name": "moon-cli",
+    "name": "byy-cli",
     "version": "0.1.0",
     "main": "index.js",
-    "repository": "git@github.com:ToTheEnd0314/moon-cli.git",
+    "repository": "git@github.com:ToTheEnd0314/byy-cli.git",
     "author": "Horses Lee",
     "license": "MIT",
     "private": true,

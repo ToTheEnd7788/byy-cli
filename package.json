@@ -1,11 +1,11 @@
 {
-  "name": "moon-cli",
-  "version": "0.1.0",
+  "name": "byy-cli",
+  "version": "0.2.0",
   "main": "index.js",
-  "repository": "git@github.com:ToTheEnd0314/moon-cli.git",
+  "repository": "git@github.com:ToTheEnd0314/byy-cli.git",
   "author": "Horses Lee",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "cross-env NODE_ENV=development babel-node ./build/devServer.js",
     "build": "cross-env NODE_ENV=production babel-node ./build/index.js"
