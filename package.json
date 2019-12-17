@@ -20,7 +20,7 @@
     "js-beautify": "^1.10.2",
     "parse5": "^5.1.1",
     "rollup": "^1.27.8",
-    "rollup-plugin-byy": "^0.7.0",
+    "rollup-plugin-byy": "^0.8.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-copy": "^3.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -30,7 +30,7 @@
     "typescript": "^3.7.2"
   },
   "dependencies": {
-    "byy": "^1.3.2"
+    "byy": "^1.4.4"
   },
   "babel": {
     "presets": [

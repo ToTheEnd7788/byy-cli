@@ -1,12 +1,11 @@
 <template>
-  <div
-    :aaLb="123123"
-    class="app">
+  <div class="app">
     <div class="app__main">
       <div class="app__main-title">
         Todos
       </div>
       <div class="app__main-input">
+        {{ this.textContent }}
         <input
           b-model="this.textContent"
           type="text"
@@ -29,7 +28,7 @@
           </todo-item>
         </div>
       </div>
-    </divclass="app">
+    </div>
   </div>
 </template>
 
@@ -56,7 +55,9 @@
       // 0: new
       // 1: finished
       // 2: static
-      todos: []
+      todos: [],
+
+      showMe: false
     },
 
     mounted() {

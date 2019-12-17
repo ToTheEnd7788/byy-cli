@@ -946,10 +946,10 @@ bytes@3.1.0:
   resolved "https://registry.npm.taobao.org/bytes/download/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha1-9s95M6Ng4FiPqf3oVlHNx/gF0fY=
 
-byy@^1.3.2:
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/byy/-/byy-1.3.2.tgz#bec11f60ca9230873bb035a30d82a577c527ffa1"
-  integrity sha512-05y0HI5XMMVt8UnDyPS0nej7/snQ3VWytSLZDDTaEQI9Jj7wLn55xKvnNT8H8y5pTbvVKVBnNm2HehEP+oTpWA==
+byy@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/byy/-/byy-1.4.4.tgz#2bdd0af7acf30826ddd256e8c6d5039330c4e6c9"
+  integrity sha512-ars1EIi9ryGayarsG7dtyc/mX20PMX0n4G5hR1Ga7wGhs2w4l1u8Q3PclYxg1Y10vDzhP+kr9oMPlPkJozbf/g==
 
 camelcase-keys@^2.0.0:
   version "2.1.0"
@@ -2631,10 +2631,10 @@ rimraf@2:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-byy@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-byy/-/rollup-plugin-byy-0.7.0.tgz#241612d521ee961c282ab7f328aab1c2c8e13734"
-  integrity sha512-oovpZahLM1WubNGm+5Y8VtqYssOUK/VoiuN3T/eSEpnTmxS9jsRIRxKZ7CykiffYfoY2k1BVLhQ5lsuFjpyeYw==
+rollup-plugin-byy@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-byy/-/rollup-plugin-byy-0.8.0.tgz#a897911b6b13743bae83509ba6aba32c3e3767eb"
+  integrity sha512-ef5Obsac5Dam0TxppiQqX6s2/V2UUR/oH4u6QTXnQXs8NyUneiqCTU4H7sMPON3aXdva2UOxII3R8FsoIDEOvA==
   dependencies:
     js-beautify "^1.10.2"
     parse5-byy "^5.1.2"

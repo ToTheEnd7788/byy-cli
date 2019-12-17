@@ -43,7 +43,7 @@
     methods: {
       toggleCheckboxStatus() {
         console.log(77777777);
-        this.$emit("togglecheckboxstatus", this.text);
+        this.$emit("toggleCheckboxStatus", this.text);
       },
 
       mouseEnter() {
