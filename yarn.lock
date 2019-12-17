@@ -946,10 +946,10 @@ bytes@3.1.0:
   resolved "https://registry.npm.taobao.org/bytes/download/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha1-9s95M6Ng4FiPqf3oVlHNx/gF0fY=
 
-byy@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/byy/-/byy-1.3.0.tgz#15c7393c94ca2c41d4e62f35ec6411e7648bb51d"
-  integrity sha512-P1RAYfpPiGUtS2TqyhCyG112IPqJdj1QMtv5prl47qf8GzEU6X87vtK8ZzFq/jscfgP4J90GzIcKG2yOQ2arpg==
+byy@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/byy/-/byy-1.3.2.tgz#bec11f60ca9230873bb035a30d82a577c527ffa1"
+  integrity sha512-05y0HI5XMMVt8UnDyPS0nej7/snQ3VWytSLZDDTaEQI9Jj7wLn55xKvnNT8H8y5pTbvVKVBnNm2HehEP+oTpWA==
 
 camelcase-keys@^2.0.0:
   version "2.1.0"
