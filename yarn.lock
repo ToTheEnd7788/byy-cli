@@ -2308,10 +2308,10 @@ parse-passwd@^1.0.0:
   resolved "https://registry.npm.taobao.org/parse-passwd/download/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
   integrity sha1-bVuTSkVpk7I9N/QKOC1vFmao5cY=
 
-parse5-byy@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/parse5-byy/-/parse5-byy-5.1.2.tgz#aaa9907633bff41d35eb3fc879ca9d0f48afdf91"
-  integrity sha512-hBYFB4l0ziMyFnFAnF0aCPU2p+ebYLLddpSRaS0nq/QtUAJuBQrDcggXpTf56v4j/DSk3lXS/TGxkyWS+umjLg==
+parse5-byy@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/parse5-byy/-/parse5-byy-5.1.3.tgz#33cf4a8c039753d0b739a15153bbb8f58c881ba0"
+  integrity sha512-JgCYLCzNk/9/pjuH/l4m6+gtC2Sf3hW7xMXwQjDgZ6qX7jlMuhl1S9iN7sbzKF4/nmB6RWH4X9N/FIPDsbInRQ==
 
 parse5@^5.1.1:
   version "5.1.1"
@@ -2631,13 +2631,13 @@ rimraf@2:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-byy@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-byy/-/rollup-plugin-byy-0.8.0.tgz#a897911b6b13743bae83509ba6aba32c3e3767eb"
-  integrity sha512-ef5Obsac5Dam0TxppiQqX6s2/V2UUR/oH4u6QTXnQXs8NyUneiqCTU4H7sMPON3aXdva2UOxII3R8FsoIDEOvA==
+rollup-plugin-byy@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-byy/-/rollup-plugin-byy-0.8.1.tgz#17db761dde7fa6f4c2ec25753aea109d46dfa301"
+  integrity sha512-I9q9eYYo7vdYldwrdoP7y2XhCGVNWwv4VLli2CiOjQpKNgSd5Do0yfoAmUI5xPk5VgOvQssNUxBRCi63OPd4nw==
   dependencies:
     js-beautify "^1.10.2"
-    parse5-byy "^5.1.2"
+    parse5-byy "^5.1.3"
     typescript "^3.7.3"
 
 rollup-plugin-commonjs@^10.1.0:
