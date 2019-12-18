@@ -1,6 +1,8 @@
 dist
-bin
 /node_modules/
 scripts
 /.git/
 .gitignore
+yarn-error.log
+yarn.lock
+rollup.config.js

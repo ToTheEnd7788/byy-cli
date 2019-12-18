@@ -1,8 +1,8 @@
-const chalk = require("chalk");
-const path = require("path");
-const jsonFormat = require("json-format")
-const { readFileSync, writeFileSync } = require("fs");
-const { spawnSync } = require("child_process");
+import chalk from "chalk";
+import path from "path";
+import jsonFormat from "json-format";
+import { readFileSync, writeFileSync }  from "fs";
+import { spawnSync, spawn } from "child_process";
 
 process.stdin.setEncoding("utf8");
 
@@ -34,6 +34,11 @@ class Step {
       "3": [
         "Enter the project author or your name",
         "author",
+        false
+      ],
+      "4": [
+        "Enter the installer which you want to use",
+        "installer",
         true
       ]
     };
@@ -63,6 +68,7 @@ class Step {
   }
 
   callback() {
+    // Copy and write files, folders
     for (let target of this.writeList) {
       let { name, type, path } = target;
 
@@ -75,6 +81,44 @@ class Step {
         this.copy(type, path);
       }
     }
+
+    console.log(chalk.bold.green(`\n Then install dependencies...\n`));
+
+    let scriptParams = this.installer === "yarn"
+      ? []
+      : ["install"],
+      scriptName = process.platform === "win32"
+        ? `${this.installer}.cmd`
+        : this.installer;
+
+        
+    let install = spawn(scriptName, scriptParams);
+    install.stdout.on("data", data => {
+      process.stdout.write(data.toString("utf8"));
+    });
+
+    install.stderr.on("data", data => {
+      process.stdout.write(data.toString("utf8"));
+    });
+
+    install.on("exit", () => {
+      let parmas = ["dev"];
+
+      console.log(chalk.bold.green(
+        `\n  > Open the dev-server\n  you can see a todos demo in http://127.0.0.1:8080/index\n`
+      ));
+
+      if (this.installer !== "yarn") parmas.unshift("run");
+      let dev = spawn(scriptName, parmas);
+
+      dev.stdout.on("data", data => {
+        process.stdout.write(data.toString("utf8"));
+      });
+  
+      dev.stderr.on("data", data => {
+        process.stdout.write(data.toString("utf8"));
+      });
+    });
   }
 
   buildStdIn(tips, name, isLast) {
@@ -85,14 +129,23 @@ class Step {
     }
   
     return new Promise((res, rej) => {
+      let extraMsg = this.package[name];
+
+      if (name === "installer") extraMsg = "yarn/npm/cnpm, default is yarn";
+
       process.stdout.write(
-        chalk.yellowBright(`\n${tips}${chalk.bold.greenBright(`(${this.package[name]})`)}:`)
+        chalk.yellowBright(`\n${tips}${chalk.bold.greenBright(`(${extraMsg})`)}:`)
       );
     
       process.stdin.on("data", (value) => {
         if (value.trim() && value.trim() !== this.package[name]) {
           if (this.settedName.indexOf(name) === -1) {
-            this.package[name] = value.trim();
+            if (name === "installer") this.installer = value.trim();
+            else this.package[name] = value.trim();
+            this.settedName.push(name);
+          }
+        } else {
+          if (this.settedName.indexOf(name) === -1) {
             this.settedName.push(name);
           }
         }
@@ -115,4 +168,4 @@ class Step {
   }
 }
 
-module.exports = new Step;
+export default Step;

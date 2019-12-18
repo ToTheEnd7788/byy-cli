@@ -1,28 +1,201 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
+'use strict';
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var fs = require('fs');
+var fs__default = _interopDefault(fs);
+var path = _interopDefault(require('path'));
+var chalk = _interopDefault(require('chalk'));
+var jsonFormat = _interopDefault(require('json-format'));
+var child_process = require('child_process');
+
+process.stdin.setEncoding("utf8");
+
+class Step {
+  constructor() {
+    this.installer = "yarn";
+
+    this.origin = process.env.ORIGIN_PATH;
+
+    this.package = JSON.parse(
+      fs.readFileSync(path.resolve(this.origin, "config.json"), "utf8")
+    );
+
+    this.writeList = this.package.writeList;
+
+    this.settedName = [];
+
+    this.steps = {
+      "1": [
+        "Enter the project name",
+        "name",
+        false
+      ],
+      "2": [
+        "Enter the project version",
+        "version",
+        false
+      ],
+      "3": [
+        "Enter the project author or your name",
+        "author",
+        false
+      ],
+      "4": [
+        "Enter the installer which you want to use",
+        "installer",
+        true
+      ]
+    };
+
+    delete this.package.writeList;
+  }
+
+  copy(type, src) {
+    let params = [`${this.origin}/${src}`, "./"];
+
+    if (type === "folder") {
+      params.unshift("-r");
+    }
+    let a = child_process.spawnSync("cp", params);
+
+    if (a.code === 0 || a.status === 0) {
+      console.log(` Copy-${type}: ${src} => destination successfully...`);
+    } else {
+      console.log(` Copy-${type}: ${src} => destination Failed!!!`);
+    }
+  }
+
+  writeFile(name, data) {
+    fs.writeFileSync(`./${name}`, data);
+
+    console.log(` WriteFile-${name} to destination Successfully...`);
+  }
+
+  callback() {
+    // Copy and write files, folders
+    for (let target of this.writeList) {
+      let { name, type, path } = target;
+
+      if (type === "memory") {
+        this.writeFile(path, jsonFormat(this[name], {
+          size: 2,
+          type: "space"
+        }));
+      } else {
+        this.copy(type, path);
+      }
+    }
+
+    console.log(chalk.bold.green(`\n Then install dependencies...\n`));
+
+    let scriptParams = this.installer === "yarn"
+      ? []
+      : ["install"],
+      scriptName = process.platform === "win32"
+        ? `${this.installer}.cmd`
+        : this.installer;
+
+        
+    let install = child_process.spawn(scriptName, scriptParams);
+    install.stdout.on("data", data => {
+      process.stdout.write(data.toString("utf8"));
+    });
+
+    install.stderr.on("data", data => {
+      process.stdout.write(data.toString("utf8"));
+    });
+
+    install.on("exit", () => {
+      let parmas = ["dev"];
+
+      console.log(chalk.bold.green(
+        `\n  > Open the dev-server\n  you can see a todos demo in http://127.0.0.1:8080/index\n`
+      ));
+
+      if (this.installer !== "yarn") parmas.unshift("run");
+      let dev = child_process.spawn(scriptName, parmas);
+
+      dev.stdout.on("data", data => {
+        process.stdout.write(data.toString("utf8"));
+      });
+  
+      dev.stderr.on("data", data => {
+        process.stdout.write(data.toString("utf8"));
+      });
+    });
+  }
+
+  buildStdIn(tips, name, isLast) {
+    if (name === "name") {
+      this.package = Object.assign(this.package, {
+        name: path.basename(process.cwd())
+      });
+    }
+  
+    return new Promise((res, rej) => {
+      let extraMsg = this.package[name];
+
+      if (name === "installer") extraMsg = "yarn/npm/cnpm, default is yarn";
+
+      process.stdout.write(
+        chalk.yellowBright(`\n${tips}${chalk.bold.greenBright(`(${extraMsg})`)}:`)
+      );
+    
+      process.stdin.on("data", (value) => {
+        if (value.trim() && value.trim() !== this.package[name]) {
+          if (this.settedName.indexOf(name) === -1) {
+            if (name === "installer") this.installer = value.trim();
+            else this.package[name] = value.trim();
+            this.settedName.push(name);
+          }
+        } else {
+          if (this.settedName.indexOf(name) === -1) {
+            this.settedName.push(name);
+          }
+        }
+  
+        if (isLast) {
+          process.stdin.emit("end");
+
+          this.callback();
+        }
+  
+        res(value);
+      });
+    });
+  }
+
+  async runSteps() {
+    for (let key in this.steps) {
+      await this.buildStdIn(...this.steps[key]);
+    }
+  }
+}
 
 process.env.ORIGIN_PATH = path.resolve(process.argv[1], "../../");
 
 async function runner() {
   /* Step.1: Show welcome info */
-  require("../scrips/welcome");
+  console.log(
+    `\nThanks for using ${chalk.green(" byy-cli ")}...
+    Please follow below steps and tips to create a ${chalk.keyword("orange")("byy")} project\n`
+  );
   
   /* Step.2: Set project name... */
-
-  const step = require("../scrips/steps");
-  await step.runSteps();
+  await new Step().runSteps();
 }
 
 if (
   process.argv[2] === "--version" ||
   process.argv[2] === "-v"
 ) {
-  fs.readFile(path.resolve(process.env.ORIGIN_PATH, "package.json"), "utf8", (err, data) => {
+  fs__default.readFile(path.resolve(process.env.ORIGIN_PATH, "package.json"), "utf8", (err, data) => {
     if (err) console.log("Get version failed");
     let json = JSON.parse(data);
     console.log(` byy-cli@${json.version}\n By ${json.author}`);
-  })
+  });
 } else if (
   process.argv[2] === "--path" ||
   process.argv[2] === "-p"
