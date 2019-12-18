@@ -1,6 +1,8 @@
 # byy-cli
 
-## Todos
-1. Extract style content in byy file
+### A develop mvvm fragment cli for ie >= 8
+
+#### Todos
+1. Finished todos demo
 ---
-A develop fragment for ie 8
+...
