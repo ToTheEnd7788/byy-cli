@@ -1,0 +1,6 @@
+dist
+bin
+/node_modules/
+scripts
+/.git/
+.gitignore

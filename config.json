@@ -1,8 +1,6 @@
 {
   "name": "byy-cli",
-  "version": "0.2.0",
-  "main": "index.js",
-  "repository": "git@github.com:ToTheEnd0314/byy-cli.git",
+  "version": "1.0.0",
   "author": "Horses Lee",
   "license": "MIT",
   "private": false,
@@ -10,20 +8,13 @@
     "dev": "cross-env NODE_ENV=development babel-node ./build/devServer.js",
     "build": "cross-env NODE_ENV=production babel-node ./build/index.js"
   },
-  "bin": {
-    "byy-cli": "./bins/byy-cli"
-  },
   "devDependencies": {
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@rollup/plugin-alias": "^2.2.0",
-    "chalk": "^3.0.0",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
-    "js-beautify": "^1.10.2",
-    "json-format": "^1.0.1",
-    "parse5": "^5.1.1",
     "rollup": "^1.27.8",
     "rollup-plugin-byy": "^0.8.1",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -41,5 +32,32 @@
     "presets": [
       "@babel/preset-env"
     ]
-  }
+  },
+  "writeList": [
+    {
+      "path": "build",
+      "type": "folder"
+    },
+    {
+      "path": "src",
+      "type": "folder"
+    },
+    {
+      "path": ".gitignore",
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "type": "file"
+    },
+    {
+      "path": "tsconfig.json",
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "type": "memory",
+      "name": "package"
+    }
+  ]
 }
