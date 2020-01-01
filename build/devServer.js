@@ -12,7 +12,7 @@ const app = express(),
 let watchOptions = {
   ...Object.assign({}, {
     plugins: base.plugins("index"),
-    input: `./src/js/pages/index.js`
+    input: `./src/js/pages/index.ts`
   }),
   output: base.output("index")
 }

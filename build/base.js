@@ -5,6 +5,7 @@ import byyPlugin from "rollup-plugin-byy";
 import copyPlugin from "rollup-plugin-copy";
 import commonPlugin from "rollup-plugin-commonjs";
 import resolvePlugin from "rollup-plugin-node-resolve";
+import typescript from "rollup-plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 
 const root = path.resolve(__dirname, "../"),
@@ -25,6 +26,11 @@ base = {
 
   plugins: (name) => {
     return [
+      typescript(),
+      scssPlugin({
+        output: `dist/css/${name}.css`,
+        outputStyle: isDev ? "expanded" : "compressed",
+      }),
       resolvePlugin(),
       commonPlugin({
         include: /node_modules/
@@ -39,10 +45,6 @@ base = {
         }
       }),
       byyPlugin(),
-      scssPlugin({
-        output: `dist/css/${name}.css`,
-        outputStyle: isDev ? "expanded" : "compressed",
-      }),
       copyPlugin({
         targets: [
           {
@@ -52,15 +54,25 @@ base = {
           {
             src: "src/imgs/*",
             dest: "dist/imgs/"
+          },
+          {
+            src: "src/js/*.js",
+            dest: "dist/js"
           }
         ]
       }),
     ].concat(isDev ? [] : [
       terser({
         ie8: true,
+        compress: {
+          unused: false
+        },
         output: {
           comments: false
-        }
+        },
+        mangle: {
+          reserved: ["RxTips"]
+        },
       })
     ]);
   }
