@@ -5,6 +5,15 @@ import Step from "./steps";
 
 process.env.ORIGIN_PATH = path.resolve(process.argv[1], "../../");
 
+let json = JSON.parse(
+  fs.readFileSync(
+    path.resolve(
+      process.env.ORIGIN_PATH,
+      "./lib/node_modules/byy-cli/package.json"
+    ),
+    "utf8"
+    ));
+
 async function runner() {
   /* Step.1: Show welcome info */
   console.log(
@@ -20,16 +29,12 @@ if (
   process.argv[2] === "--version" ||
   process.argv[2] === "-v"
 ) {
-  fs.readFile(path.resolve(process.env.ORIGIN_PATH, "package.json"), "utf8", (err, data) => {
-    if (err) console.log("Get version failed");
-    let json = JSON.parse(data);
-    console.log(` byy-cli@${json.version}\n By ${json.author}`);
-  })
+  console.log(` byy-cli@${json.version}\n By ${json.author.name}`);
 } else if (
   process.argv[2] === "--path" ||
   process.argv[2] === "-p"
 ) {
-  console.log(` byy-cli: ${process.env.ORIGIN_PATH}`);
+  console.log(` byy-cli=> ${process.env.ORIGIN_PATH}`);
 } else {
   runner();
 }

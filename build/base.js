@@ -3,9 +3,9 @@ import aliasPlugin from "@rollup/plugin-alias";
 import scssPlugin from "rollup-plugin-scss";
 import byyPlugin from "rollup-plugin-byy";
 import copyPlugin from "rollup-plugin-copy";
-import commonPlugin from "rollup-plugin-commonjs";
-import resolvePlugin from "rollup-plugin-node-resolve";
-import typescript from "rollup-plugin-typescript";
+import commonPlugin from "@rollup/plugin-commonjs";
+import resolvePlugin from "@rollup/plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
 
 const root = path.resolve(__dirname, "../"),

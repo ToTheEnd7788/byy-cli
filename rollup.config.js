@@ -5,7 +5,7 @@ module.exports = {
     // typescriptPlugin()
   ],
   output: {
-    file: "script/bin.js",
+    file: "bin/byy-cli",
     format: "cjs",
     indent: false,
     banner: "#!/usr/bin/env node"

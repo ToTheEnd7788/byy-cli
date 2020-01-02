@@ -13,7 +13,7 @@ class Step {
     this.origin = process.env.ORIGIN_PATH;
 
     this.package = JSON.parse(
-      readFileSync(path.resolve(this.origin, "config.json"), "utf8")
+      readFileSync(path.resolve(this.origin, "./lib/node_modules/byy-cli/config.json"), "utf8")
     );
 
     this.writeList = this.package.writeList;
@@ -47,7 +47,7 @@ class Step {
   }
 
   copy(type, src) {
-    let params = [`${this.origin}/${src}`, "./"];
+    let params = [`${this.origin}/lib/node_modules/byy-cli/${src}`, "./"];
 
     if (type === "folder") {
       params.unshift("-r");
