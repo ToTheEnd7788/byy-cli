@@ -5,7 +5,7 @@ module.exports = {
     // typescriptPlugin()
   ],
   output: {
-    file: "bin/script",
+    file: "script/bin.js",
     format: "cjs",
     indent: false,
     banner: "#!/usr/bin/env node"
